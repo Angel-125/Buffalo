@@ -78,6 +78,7 @@
     <Compile Include="Utilities\WBIModuleRotator.cs" />
     <Compile Include="Utilities\WBIVTOLManager.cs" />
     <Compile Include="Science\WBIBuffaloGeoLab.cs" />
+    <Compile Include="Utilities\WBIFlexFuelPack.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\WildBlueTools\WildBlueTools.csproj">
