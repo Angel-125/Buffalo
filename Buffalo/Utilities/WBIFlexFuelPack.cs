@@ -29,6 +29,8 @@ namespace WildBlueIndustries
         public int currentGenerator;
 
         List<ModuleResourceConverter> generators;
+        ModuleResourceConverter converter;
+        bool particlesEnabled;
 
         [KSPEvent(guiActiveUnfocused = true, unfocusedRange = 5.0f, guiName = "Toggle Fuel", guiActiveEditor = true)]
         public void ToggleGenerator()
@@ -44,6 +46,7 @@ namespace WildBlueIndustries
             //Enable the new generator
             generators[currentGenerator].EnableModule();
             currentGeneratorName = generators[currentGenerator].ConverterName;
+            converter = generators[currentGenerator];
         }
 
         public override void OnStart(StartState state)
@@ -64,7 +67,46 @@ namespace WildBlueIndustries
                     //Now enable the current converter
                     generators[index].EnableModule();
                     currentGeneratorName = generators[index].ConverterName;
+                    converter = generators[currentGenerator];
                 }
+            }
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+
+            if (converter.IsActivated == false && particlesEnabled)
+            {
+                particlesEnabled = false;
+                setEmittersVisible(false);
+            }
+
+            if (converter.IsActivated && particlesEnabled == false && converter.status.Contains("load"))
+            {
+                particlesEnabled = true;
+                setEmittersVisible(true);
+            }
+
+            else if (converter.IsActivated && particlesEnabled && converter.status.Contains("cap"))
+            {
+                particlesEnabled = false;
+                setEmittersVisible(false);
+            }
+
+        }
+
+        protected void setEmittersVisible(bool isVisible)
+        {
+            KSPParticleEmitter[] emitters = part.GetComponentsInChildren<KSPParticleEmitter>();
+            int totalCount = emitters.Length;
+            KSPParticleEmitter emitter;
+
+            for (int index = 0; index < totalCount; index++)
+            {
+                emitter = emitters[index];
+                emitter.emit = isVisible;
+                emitter.enabled = isVisible;
             }
         }
     }
