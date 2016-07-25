@@ -79,7 +79,6 @@
     <Compile Include="Utilities\WBIVTOLManager.cs" />
     <Compile Include="Science\WBIBuffaloGeoLab.cs" />
     <Compile Include="Utilities\WBIFlexFuelPack.cs" />
-    <Compile Include="Utilities\WBIDecoupleSwitcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\WildBlueTools\WildBlueTools.csproj">
