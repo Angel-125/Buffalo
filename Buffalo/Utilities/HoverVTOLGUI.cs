@@ -23,7 +23,7 @@ namespace WildBlueIndustries
     {
         public WBIVTOLManager vtolManager;
         Texture settingsIcon;
-        HoverControlSetupGUI hoverSetupGUI;
+        public HoverControlSetupGUI hoverSetupGUI = new HoverControlSetupGUI();
 
         public HoverVTOLGUI(string title = "", int height = 15, int width = 310) :
         base(title, width, height)
@@ -38,7 +38,6 @@ namespace WildBlueIndustries
 
             if (hoverSetupGUI == null)
             {
-                hoverSetupGUI = new HoverControlSetupGUI();
                 hoverSetupGUI.vtolManager = this.vtolManager;
             }
         }

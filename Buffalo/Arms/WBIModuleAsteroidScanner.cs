@@ -26,7 +26,7 @@ namespace WildBlueIndustries
         private const string kNoAnalysisModule = "Unable to find an analysis module, cannot proceed!";
         private const string kNoPotato = "No analysis possible. It doesn't appear that you're attached to an asteroid.";
 
-        protected AsteroidScannerInfo scannerInfo;
+        protected AsteroidScannerInfo scannerInfo = new AsteroidScannerInfo();
 
         [KSPEvent(guiName = "Scan Asteroid", guiActive = true, guiActiveUnfocused = true, unfocusedRange = 3.0f)]
         public void ScanAsteroid()
@@ -81,6 +81,12 @@ namespace WildBlueIndustries
             scannerInfo.SetVisible(true);
         }
 
+        public void OnGUI()
+        {
+            if (scannerInfo.IsVisible())
+                scannerInfo.DrawWindow();
+        }
+
         public string GetModuleTitle()
         {
             return "Asteroid Scanner";
@@ -106,8 +112,6 @@ namespace WildBlueIndustries
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
-
-            scannerInfo = new AsteroidScannerInfo();
         }
     }
 }

@@ -22,59 +22,35 @@ namespace WildBlueIndustries
     [KSPModule("Flex Fuel Switcher")]
     public class WBIFlexFuelPack : PartModule
     {
-        [KSPField(guiActive = true, guiActiveEditor = true, guiName = "Flex Fuel")]
-        public string currentGeneratorName = string.Empty;
-
-        [KSPField(isPersistant = true)]
-        public int currentGenerator;
-
-        List<ModuleResourceConverter> generators;
         ModuleResourceConverter converter;
         bool particlesEnabled;
-
-        [KSPEvent(guiActiveUnfocused = true, unfocusedRange = 5.0f, guiName = "Toggle Fuel", guiActiveEditor = true)]
-        public void ToggleGenerator()
-        {
-            //Disable the current generator
-            generators[currentGenerator].DisableModule();
-
-            //Get the next generator in the list
-            currentGenerator += 1;
-            if (currentGenerator >= generators.Count)
-                currentGenerator = 0;
-
-            //Enable the new generator
-            generators[currentGenerator].EnableModule();
-            currentGeneratorName = generators[currentGenerator].ConverterName;
-            converter = generators[currentGenerator];
-        }
 
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
 
-            generators = this.part.FindModulesImplementing<ModuleResourceConverter>();
-
-            for (int index = 0; index < generators.Count; index++)
+            WBIConvertibleStorage storage = this.part.FindModuleImplementing<WBIConvertibleStorage>();
+            if (storage != null)
             {
-                if (index != currentGenerator)
-                {
-                    generators[index].DisableModule();
-                }
+                storage.Events["ReconfigureStorage"].guiName = "Select Fuel";
+                storage.SetWindowTitle("Select Fuel");
 
-                else
-                {
-                    //Now enable the current converter
-                    generators[index].EnableModule();
-                    currentGeneratorName = generators[index].ConverterName;
-                    converter = generators[currentGenerator];
-                }
+                if (HighLogic.LoadedSceneIsFlight)
+                    storage.onModuleRedecorated += new ModuleRedecoratedEvent(storage_onModuleRedecorated);
             }
+        }
+
+        void storage_onModuleRedecorated(ConfigNode templateNode)
+        {
+            converter = this.part.FindModuleImplementing<ModuleResourceConverter>();
         }
 
         public override void OnUpdate()
         {
             base.OnUpdate();
+
+            if (converter == null && HighLogic.LoadedSceneIsFlight)
+                converter = this.part.FindModuleImplementing<ModuleResourceConverter>();
 
             if (converter.IsActivated == false && particlesEnabled)
             {
