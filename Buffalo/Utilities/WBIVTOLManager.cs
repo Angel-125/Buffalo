@@ -39,7 +39,7 @@ namespace WildBlueIndustries
         public Dictionary<string, KeyCode> controlCodes = new Dictionary<string,KeyCode>();
 
         private List<WBIMultiEngineHover> hoverEngines = new List<WBIMultiEngineHover>();
-        private HoverVTOLGUI hoverGUI;
+        private HoverVTOLGUI hoverGUI = new HoverVTOLGUI();
         private string hoverControlsPath;
 
         public void Start()
@@ -48,7 +48,6 @@ namespace WildBlueIndustries
             GameEvents.onVesselLoaded.Add(VesselWasLoaded);
             GameEvents.onVesselChange.Add(VesselWasChanged);
 
-            hoverGUI = new HoverVTOLGUI();
             hoverGUI.vtolManager = this;
 
             this.vessel = FlightGlobals.ActiveVessel;
@@ -56,6 +55,14 @@ namespace WildBlueIndustries
             //Get the current control code mappings
             hoverControlsPath = AssemblyLoader.loadedAssemblies.GetPathByType(typeof(WBIVTOLManager)) + "/VTOLControls.cfg";
             loadControls();
+        }
+
+        public void OnGUI()
+        {
+            if (hoverGUI.IsVisible())
+                hoverGUI.DrawWindow();
+            if (hoverGUI.hoverSetupGUI.IsVisible())
+                hoverGUI.hoverSetupGUI.DrawWindow();
         }
 
         protected void loadControls()

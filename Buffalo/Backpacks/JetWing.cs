@@ -37,6 +37,9 @@ namespace WildBlueIndustries
         WBIResourceSwitcher resourceSwitcher;
         WBIMultiEngineHover hoverEngine;
 
+        ModuleRCS rcsModule;
+        float originalThrusterPower;
+
         [KSPEvent(guiActive = true, guiName = "Decouple")]
         public void Decoupler()
         {
@@ -71,6 +74,7 @@ namespace WildBlueIndustries
         public override void OnUpdate()
         {
             base.OnUpdate();
+            FXGroup thrusterFX;
 
             //We need engine power to run the RCS
             if (vessel.ActionGroups[KSPActionGroup.RCS])
@@ -78,8 +82,18 @@ namespace WildBlueIndustries
                 //Check operational state
                 if (hasThrustForRCS() == false)
                 {
-                    vessel.ActionGroups.SetGroup(KSPActionGroup.RCS, false);
-                    ScreenMessages.PostScreenMessage(new ScreenMessage("RCS deactivated, no engine thrust available", 4f, ScreenMessageStyle.UPPER_CENTER));
+                    rcsModule.thrusterPower = 0.0f;
+
+                    for (int thrusterIndex = 0; thrusterIndex < rcsModule.thrusterFX.Count; thrusterIndex++)
+                    {
+                        thrusterFX = rcsModule.thrusterFX[thrusterIndex];
+                        thrusterFX.Power = 0.0f;
+                    }
+                }
+
+                else
+                {
+                    rcsModule.thrusterPower = originalThrusterPower;
                 }
             }
 
@@ -137,6 +151,9 @@ namespace WildBlueIndustries
 
             if (HighLogic.LoadedSceneIsEditor == false && HighLogic.LoadedSceneIsFlight == false)
                 return;
+
+            rcsModule = this.part.FindModuleImplementing<ModuleRCS>();
+            originalThrusterPower = rcsModule.thrusterPower;
 
             //Set landing gear action
             ModuleAnimateGeneric kickstandAnim = this.part.FindModuleImplementing<ModuleAnimateGeneric>();

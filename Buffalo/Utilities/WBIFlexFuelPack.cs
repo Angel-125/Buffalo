@@ -22,49 +22,67 @@ namespace WildBlueIndustries
     [KSPModule("Flex Fuel Switcher")]
     public class WBIFlexFuelPack : PartModule
     {
-        [KSPField(guiActive = true, guiActiveEditor = true, guiName = "Flex Fuel")]
-        public string currentGeneratorName = string.Empty;
-
-        [KSPField(isPersistant = true)]
-        public int currentGenerator;
-
-        List<ModuleResourceConverter> generators;
-
-        [KSPEvent(guiActiveUnfocused = true, unfocusedRange = 5.0f, guiName = "Toggle Fuel", guiActiveEditor = true)]
-        public void ToggleGenerator()
-        {
-            //Disable the current generator
-            generators[currentGenerator].DisableModule();
-
-            //Get the next generator in the list
-            currentGenerator += 1;
-            if (currentGenerator >= generators.Count)
-                currentGenerator = 0;
-
-            //Enable the new generator
-            generators[currentGenerator].EnableModule();
-            currentGeneratorName = generators[currentGenerator].ConverterName;
-        }
+        ModuleResourceConverter converter;
+        bool particlesEnabled;
 
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
 
-            generators = this.part.FindModulesImplementing<ModuleResourceConverter>();
-
-            for (int index = 0; index < generators.Count; index++)
+            WBIConvertibleStorage storage = this.part.FindModuleImplementing<WBIConvertibleStorage>();
+            if (storage != null)
             {
-                if (index != currentGenerator)
-                {
-                    generators[index].DisableModule();
-                }
+                storage.Events["ReconfigureStorage"].guiName = "Select Fuel";
+                storage.SetWindowTitle("Select Fuel");
 
-                else
-                {
-                    //Now enable the current converter
-                    generators[index].EnableModule();
-                    currentGeneratorName = generators[index].ConverterName;
-                }
+                if (HighLogic.LoadedSceneIsFlight)
+                    storage.onModuleRedecorated += new ModuleRedecoratedEvent(storage_onModuleRedecorated);
+            }
+        }
+
+        void storage_onModuleRedecorated(ConfigNode templateNode)
+        {
+            converter = this.part.FindModuleImplementing<ModuleResourceConverter>();
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+
+            if (converter == null && HighLogic.LoadedSceneIsFlight)
+                converter = this.part.FindModuleImplementing<ModuleResourceConverter>();
+
+            if (converter.IsActivated == false && particlesEnabled)
+            {
+                particlesEnabled = false;
+                setEmittersVisible(false);
+            }
+
+            if (converter.IsActivated && particlesEnabled == false && converter.status.Contains("load"))
+            {
+                particlesEnabled = true;
+                setEmittersVisible(true);
+            }
+
+            else if (converter.IsActivated && particlesEnabled && converter.status.Contains("cap"))
+            {
+                particlesEnabled = false;
+                setEmittersVisible(false);
+            }
+
+        }
+
+        protected void setEmittersVisible(bool isVisible)
+        {
+            KSPParticleEmitter[] emitters = part.GetComponentsInChildren<KSPParticleEmitter>();
+            int totalCount = emitters.Length;
+            KSPParticleEmitter emitter;
+
+            for (int index = 0; index < totalCount; index++)
+            {
+                emitter = emitters[index];
+                emitter.emit = isVisible;
+                emitter.enabled = isVisible;
             }
         }
     }

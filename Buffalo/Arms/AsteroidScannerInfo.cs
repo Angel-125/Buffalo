@@ -25,11 +25,11 @@ namespace WildBlueIndustries
         public ModuleAsteroidInfo asteroidInfo = null;
         public Part potato = null;
 
-        Vector2 scrollPosition =  new Vector2();
+        Vector2 scrollPosition, scrollPos2 =  new Vector2();
         List<ModuleAsteroidResource> astroResources = new List<ModuleAsteroidResource>();
 
         public AsteroidScannerInfo() :
-            base("Asteroid Analysis", 300, 400)
+            base("Asteroid Analysis", 380, 450)
         {
             Resizable = false;
         }
@@ -43,23 +43,22 @@ namespace WildBlueIndustries
 
         protected override void DrawWindowContents(int windowId)
         {
-            GUIStyle centeredStyle = GUI.skin.GetStyle("Label");
-            centeredStyle.alignment = TextAnchor.UpperCenter;
-
             string resourceString = null;
+            string resourcePercentage = asteroidInfo.resources;
+            string displayMass = asteroidInfo.displayMass;
             if (asteroid == null || asteroidInfo == null)
                 return;
 
             GUILayout.BeginVertical();
-            GUILayout.BeginScrollView(new Vector2(0, 0), new GUILayoutOption[]{GUILayout.Height(120)});
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition);
             GUILayout.Label("<color=white><b>Name: </b>" + asteroid.AsteroidName + "</color>");
             GUILayout.Label(string.Format("<color=white><b>Density: </b>{0:f2}t/L</color>", asteroid.density));
-            GUILayout.Label("<color=white><b>Mass: </b>" + asteroidInfo.displayMass + "</color>");
-            GUILayout.Label("<color=white><b>Resources Mass: </b>" + asteroidInfo.resources + "</color>");
+            GUILayout.Label("<color=white><b>Mass: </b>" + displayMass + "</color>");
+            GUILayout.Label("<color=white><b>Resources Mass: </b>" + resourcePercentage + "</color>");
             GUILayout.EndScrollView();
 
-            GUILayout.Label("<color=white><b>Resource Composition</b></color>", centeredStyle);
-            scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+            GUILayout.Label("<color=white><b>Resource Composition</b></color>");
+            scrollPos2 = GUILayout.BeginScrollView(scrollPos2);
             foreach (ModuleAsteroidResource resource in astroResources)
             {
                 if (resource.abundance > 0.0f)

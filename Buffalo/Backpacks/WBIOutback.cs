@@ -20,9 +20,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 namespace WildBlueIndustries
 {
     [KSPModule("Outback")]
-    public class WBIOutback : WBIResourceSwitcher
+    public class WBIOutback : WBIConvertibleStorage
     {
         Part parentPart;
+//        WBIKISInventoryWrapper inventoryWrapper;
 
         [KSPEvent(guiActive = true, guiActiveUnfocused = true, unfocusedRange = 3.0f, guiName = "Refuel EVA Propellant", guiActiveEditor = false)]
         public void RefuelEVA()
@@ -51,6 +52,33 @@ namespace WildBlueIndustries
             Events["RefuelEVA"].guiActiveUnfocused = attachedToRechargePart;
 
             parentPart = this.part.parent;
+        }
+
+        /*
+        protected virtual void getInventory()
+        {
+            if (inventoryWrapper != null)
+                return;
+            if (Utils.IsModInstalled("KIS") == false)
+                return;
+
+            foreach (PartModule partModule in parentPart.Modules)
+            {
+                if (partModule.moduleName == "ModuleKISInventory")
+                {
+                    inventoryWrapper = new WBIKISInventoryWrapper(partModule);
+                    return;
+                }
+            }
+
+        }
+         */
+
+        public override void DumpResources()
+        {
+            base.DumpResources();
+//            if (inventoryWrapper != null)
+//                inventoryWrapper.RefreshMassAndVolume();
         }
     }
 }
