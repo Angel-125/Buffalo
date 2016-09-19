@@ -16,10 +16,13 @@ namespace WildBlueIndustries
         const float kMessageDuration = 6.5f;
         const float kBiomeAnalysisFactor = 0.75f;
 
+        [KSPField]
+        public string researchSkill = "ScienceSkill";
+        
         ModuleBiomeScanner biomeScanner;
         ModuleGPS gps;
-        List<PResource.Resource> resourceList;
-        ModuleHighDefCamera highDefCamera;
+        List<PlanetaryResource> resourceList;
+        ModuleOrbitalScanner highDefCamera;
         GeoLabView geoLabView = new GeoLabView();
 
         public override void OnStart(StartState state)
@@ -84,7 +87,7 @@ namespace WildBlueIndustries
             float bonus = 0f;
 
             foreach (ProtoCrewMember crewMember in this.part.protoModuleCrew)
-                if (crewMember.experienceTrait.TypeName == "Scientist")
+                if (crewMember.HasEffect(researchSkill))
                 {
                     //One point for being a scientist.
                     bonus += 1.0f;
@@ -112,9 +115,9 @@ namespace WildBlueIndustries
 
             if (highDefCamera == null)
             {
-                highDefCamera = this.part.FindModuleImplementing<ModuleHighDefCamera>();
-                highDefCamera.Events["ToggleGui"].guiActive = false;
-                highDefCamera.Events["ToggleGui"].guiActiveUnfocused = false;
+                highDefCamera = this.part.FindModuleImplementing<ModuleOrbitalScanner>();
+                highDefCamera.Events["ToggleOverlay"].guiActive = false;
+                highDefCamera.Events["ToggleOverlay"].guiActiveUnfocused = false;
             }
 
             //Resource list

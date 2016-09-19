@@ -13,9 +13,10 @@ namespace WildBlueIndustries
     {
         public Part part;
         public ModuleGPS gps;
-        public List<PResource.Resource> resourceList;
+        public List<PlanetaryResource> resourceList;
         public PerformAnalysisDelegate performBiomAnalysisDelegate;
-        public ModuleHighDefCamera highDefCamera;
+        public ModuleOrbitalScanner highDefCamera;
+        public ModuleOrbitalSurveyor orbitalSurveyor = null;
 
         Vector2 scrollPosResources = new Vector2(0, 0);
 
@@ -40,8 +41,8 @@ namespace WildBlueIndustries
             //High Def Camera
             if (biomeUnlocked)
             {
-                if (GUILayout.Button("Toggle Scanner GUI"))
-                    highDefCamera.ToggleGui();
+                if (GUILayout.Button("Toggle Overlay"))
+                    highDefCamera.ToggleOverlay();
             }
 
             //Abundance
@@ -58,7 +59,7 @@ namespace WildBlueIndustries
                 if (resourceList.Count > 0)
                 {
                     scrollPosResources = GUILayout.BeginScrollView(scrollPosResources, new GUIStyle(GUI.skin.textArea));
-                    foreach (PResource.Resource resource in resourceList)
+                    foreach (PlanetaryResource resource in resourceList)
                     {
                         GUILayout.Label("<color=white>" + resource.resourceName + " abundance: " + getAbundance(resource.resourceName) + "</color>");
                     }

@@ -36,11 +36,8 @@ namespace WildBlueIndustries
         protected override void DrawWindowContents(int windowId)
         {
             GUILayout.BeginVertical();
-            GUILayout.Label("RCS Volume");
-            rcsVolume = GUILayout.HorizontalSlider(rcsVolume, 0, 1);
+            GUILayout.Label("TBD");
             GUILayout.EndVertical();
-
-            WBIModuleRCS.soundEffectVolume = GameSettings.SHIP_VOLUME * rcsVolume;
         }
 
         public override void SetVisible(bool newValue)
@@ -56,7 +53,6 @@ namespace WildBlueIndustries
             else
             {
                 nodeSettings.name = "SETTINGS";
-                nodeSettings.AddValue("rcsVolume", WBIModuleRCS.soundEffectVolume.ToString());
                 nodeSettings.Save(settingsPath);
             }
         }

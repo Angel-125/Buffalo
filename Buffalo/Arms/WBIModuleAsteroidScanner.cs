@@ -33,7 +33,6 @@ namespace WildBlueIndustries
         {
             ModuleAnimateGeneric animation = this.part.FindModuleImplementing<ModuleAnimateGeneric>();
             ModuleAsteroidAnalysis asteroidAnalysis = this.part.FindModuleImplementing<ModuleAsteroidAnalysis>();
-            Part potato = null;
             ModuleAsteroid asteroid = null;
             ModuleAsteroidInfo asteroidInfo = null;
 
@@ -44,22 +43,14 @@ namespace WildBlueIndustries
                 return;
             }
 
-            //Find an asteroid that we're attached to to analyze
-            potato = asteroidAnalysis.FindPotato();
-            if (potato == null)
-            {
-                ScreenMessages.PostScreenMessage(kNoPotato, kMessageDuration, ScreenMessageStyle.UPPER_CENTER);
-                return;
-            }
-
             //See if we can find the asteroid modules
-            asteroid = potato.FindModuleImplementing<ModuleAsteroid>();
+            asteroid = this.part.vessel.FindPartModuleImplementing<ModuleAsteroid>();
             if (asteroid == null)
             {
                 ScreenMessages.PostScreenMessage(kNoPotato, kMessageDuration, ScreenMessageStyle.UPPER_CENTER);
                 return;
             }
-            asteroidInfo = potato.FindModuleImplementing<ModuleAsteroidInfo>();
+            asteroidInfo = asteroid.part.FindModuleImplementing<ModuleAsteroidInfo>();
             if (asteroidInfo == null)
             {
                 ScreenMessages.PostScreenMessage(kNoPotato, kMessageDuration, ScreenMessageStyle.UPPER_CENTER);
@@ -77,7 +68,6 @@ namespace WildBlueIndustries
             //Display the window
             scannerInfo.asteroid = asteroid;
             scannerInfo.asteroidInfo = asteroidInfo;
-            scannerInfo.potato = potato;
             scannerInfo.SetVisible(true);
         }
 
