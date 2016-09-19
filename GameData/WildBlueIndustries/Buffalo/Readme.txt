@@ -32,7 +32,6 @@ If these directories already exist, then delete the existing ones before install
 
 ---REVISION HISTORY---
 
-<<<<<<< HEAD
 0.9 - PRE-RELEASE
 
 Updated to KSP 1.2. Expect additional patches as KSP is fixed and mods are updated.
@@ -44,8 +43,6 @@ Command Cab & AuxEn
 Redecorating & Converters
 - For the modules that used to require Engineers, now any class that has the ConverterSkill qualifies to reconfigure modules. For modules that used to require Scientists, now any class with the ScienceSkill qualifies to reconfigure the modules. Ditto for converters.
 
-=======
->>>>>>> origin/master
 0.8.0
 - Added a Radial Engine Mount. It is particularly helpful for landing rovers onto the ground. You can stack-mount engines and fuel tanks onto the radial mount.
 

@@ -11,11 +11,7 @@
     "VERSION":
     {
 	"MAJOR":0,
-<<<<<<< HEAD
 	"MINOR":9,
-=======
-	"MINOR":8,
->>>>>>> origin/master
 	"PATCH":0
     },
     "KSP_VERSION":
