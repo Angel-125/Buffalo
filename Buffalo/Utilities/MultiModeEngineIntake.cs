@@ -34,7 +34,7 @@ namespace WildBlueIndustries
         public bool secondaryCheckForOxygen;
 
         [KSPEvent(guiActive = true, guiName = "Toggle Mode", guiActiveEditor = true, guiActiveUnfocused = true, unfocusedRange = 2.0f)]
-        public void ToggleMode()
+        public void ToggleEngineMode()
         {
             //Toggle the mode
             this.Events["ModeEvent"].Invoke();
@@ -74,7 +74,7 @@ namespace WildBlueIndustries
                 resource = this.part.Resources[resourceDef.name];
                 checkForOxygen = primaryCheckForOxygen;
 
-                this.Events["ToggleMode"].guiName = secondaryEngineID;
+                this.Events["ToggleEngineMode"].guiName = secondaryEngineID;
             }
 
             else
@@ -84,7 +84,7 @@ namespace WildBlueIndustries
                 resource = this.part.Resources[resourceDef.name];
                 checkForOxygen = secondaryCheckForOxygen;
 
-                this.Events["ToggleMode"].guiName = primaryEngineID;
+                this.Events["ToggleEngineMode"].guiName = primaryEngineID;
             }
 
             //Change the resource to intake
