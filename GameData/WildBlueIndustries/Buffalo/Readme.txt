@@ -32,6 +32,22 @@ If these directories already exist, then delete the existing ones before install
 
 ---REVISION HISTORY---
 
+1.0.0
+
+New Parts
+- Added the Buffalo Airlock Modle (BAM). It has a rooftop solar panel and it holds a single kerbal.
+- Added the Buffalo Ground Stabilizer. This quarter-length part has fold-out stabilizer legs to lift the rover off the ground.
+- Added the Buffalo Passenger Cabin. It comes in two sizes: short (1u) and long (2u). Both sizes have rooftop solar panels.
+- Added the Buffalo Aero Cone. You can cycle through a few options.
+- Redesigned the Mineshaft and moved it to the Buffalo mod. It can serve as a docking port and as a KAS port.
+
+Bug Fixes & Enhancements
+- Removed deprecated parts.
+- Minor bug fixes.
+- Cleaned up some logging issues related to missing part modules and textures when supported mods aren't installed.
+- Updated the IVAs to make them look better with IVA overlay.
+- JSI Transparent Pods is now fully supported.
+
 0.9.8
 - Updated to KSP 1.2.1
 - You can now radially attach the chassis parts. Thanks for the suggestion, TheReadPanda! :)
