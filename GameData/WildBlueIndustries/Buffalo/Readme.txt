@@ -32,6 +32,27 @@ If these directories already exist, then delete the existing ones before install
 
 ---REVISION HISTORY---
 
+1.0.0
+Buffalo has finally hit its 1.0 release! :) The parts introduced in this release complete the rover side of the Buffalo MSEV. I have a small number of parts to complete before finishing up the Buffalo altogether, but they'll have to wait for now. Time to flesh out the Buffalo's big brother: the Bison Expedition Rover!
+
+New Parts
+- Added the Buffalo Airlock Modle (BAM). It has a rooftop solar panel and it holds a single kerbal.
+- Added the Buffalo Ground Stabilizer. This quarter-length part has fold-out stabilizer legs to lift the rover off the ground. The Ground Stabilizer serves as a docking port as well, letting you leave components on the ground. For this to work successfully, build the body components first, and then add the chassis. Hint: the animation slider lets you adjust the height of the ground stabilizer.
+- Added the Buffalo Guidance Unit. This quarter-length part has SAS, RCS, some MonoPropellant, and a really basic probe core.
+- Added the Buffalo Passenger Cabin. It comes in two sizes: short (1u) and long (2u). Both sizes have rooftop solar panels and ladders.
+- Added the Buffalo Service Bay. This 2u part has room for your various small parts and holds a small amount of ElectricCharge. You can toggle the central equipment rack as well. And it has enough space to carry a pair of Buckboard 1000 containers.
+- Added the Buffalo Cargo Ramp. It fits onto the back of the MSEV and provides a handy ramp to get into the Service Bay.
+- Added the Buffalo Aero Cone. You can cycle through a few options.
+- Added Wide versions of the Solar Flatbed.
+- Redesigned the Mineshaft and moved it to the Buffalo mod. It can serve as a docking port and as a KAS port.
+
+Bug Fixes & Enhancements
+- Removed deprecated parts.
+- Minor bug fixes.
+- Cleaned up some logging issues related to missing part modules and textures when supported mods aren't installed.
+- Updated the IVAs to make them look better with IVA overlay.
+- JSI Transparent Pods is now fully supported.
+
 0.9.8
 - Updated to KSP 1.2.1
 - You can now radially attach the chassis parts. Thanks for the suggestion, TheReadPanda! :)
