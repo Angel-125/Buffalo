@@ -18,11 +18,10 @@ namespace WildBlueIndustries
 
         [KSPField]
         public string researchSkill = "ScienceSkill";
-        
-        ModuleBiomeScanner biomeScanner;
+
+        ModuleBiomeScanner biomeScanner = null;
         ModuleGPS gps;
         List<PlanetaryResource> resourceList;
-        ModuleOrbitalScanner highDefCamera;
         GeoLabView geoLabView = new GeoLabView();
 
         public override void OnStart(StartState state)
@@ -36,7 +35,7 @@ namespace WildBlueIndustries
             geoLabView.performBiomAnalysisDelegate = this.perfomBiomeAnalysys;
         }
 
-        [KSPEvent(guiActive = true, guiName = "Toggle Lab GUI")]
+        [KSPEvent(guiActive = true, guiName = "Toggle Abundance Report")]
         public void ToggleLabGUI()
         {
             geoLabView.SetVisible(!geoLabView.IsVisible());
@@ -105,19 +104,12 @@ namespace WildBlueIndustries
             if (gps == null)
                 gps = this.part.FindModuleImplementing<ModuleGPS>();
 
-            //Biome Scanner
             if (biomeScanner == null)
             {
                 biomeScanner = this.part.FindModuleImplementing<ModuleBiomeScanner>();
                 biomeScanner.Events["RunAnalysis"].guiActive = false;
+                biomeScanner.Events["RunAnalysis"].guiActiveEditor = false;
                 biomeScanner.Events["RunAnalysis"].guiActiveUnfocused = false;
-            }
-
-            if (highDefCamera == null)
-            {
-                highDefCamera = this.part.FindModuleImplementing<ModuleOrbitalScanner>();
-                highDefCamera.Events["ToggleOverlay"].guiActive = false;
-                highDefCamera.Events["ToggleOverlay"].guiActiveUnfocused = false;
             }
 
             //Resource list
@@ -131,7 +123,6 @@ namespace WildBlueIndustries
 
             geoLabView.gps = this.gps;
             geoLabView.resourceList = this.resourceList;
-            geoLabView.highDefCamera = this.highDefCamera;
             geoLabView.part = this.part;
         }
     }

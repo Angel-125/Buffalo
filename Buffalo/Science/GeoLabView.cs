@@ -15,8 +15,6 @@ namespace WildBlueIndustries
         public ModuleGPS gps;
         public List<PlanetaryResource> resourceList;
         public PerformAnalysisDelegate performBiomAnalysisDelegate;
-        public ModuleOrbitalScanner highDefCamera;
-        public ModuleOrbitalSurveyor orbitalSurveyor = null;
 
         Vector2 scrollPosResources = new Vector2(0, 0);
 
@@ -37,13 +35,6 @@ namespace WildBlueIndustries
             GUILayout.Label("<color=white><b>Lon:</b> " + gps.lon + "</color>");
             GUILayout.Label("<color=white><b>Lat:</b> " + gps.lat + "</color>");
             GUILayout.EndScrollView();
-
-            //High Def Camera
-            if (biomeUnlocked)
-            {
-                if (GUILayout.Button("Toggle Overlay"))
-                    highDefCamera.ToggleOverlay();
-            }
 
             //Abundance
             drawAbundanceGUI(biomeUnlocked);
