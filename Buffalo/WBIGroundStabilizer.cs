@@ -51,12 +51,12 @@ namespace WildBlueIndustries
         {
             base.OnStart(state);
 
-            if (fixedUpdateHelper == null)
+            if (fixedUpdateHelper == null && HighLogic.LoadedSceneIsFlight)
             {
                 fixedUpdateHelper = this.part.gameObject.AddComponent<FixedUpdateHelper>();
                 fixedUpdateHelper.onFixedUpdateDelegate = OnUpdateFixed;
+                fixedUpdateHelper.enabled = true;
             }
-            fixedUpdateHelper.enabled = true;
 
             ModuleDockingNode dockingNode = this.part.FindModuleImplementing<ModuleDockingNode>();
             if (!dockingNode)
@@ -75,22 +75,26 @@ namespace WildBlueIndustries
 
         public void OnUpdateFixed()
         {
-            //If the legs are deployed then apply downward force
-            if (aniState == animationStates.LOCKED && Events["Toggle"].guiName == startEventGUIName)
+            try
             {
-                this.part.vessel.verticalSpeed = 0f;
-                this.part.vessel.horizontalSrfSpeed = 0f;
-                this.part.vessel.velocityD = Vector3.zero;
-
-                Part[] parts = this.part.vessel.parts.ToArray();
-                Part currentPart;
-                for (int index = 0; index < parts.Length; index++)
+                //If the legs are deployed then apply downward force
+                if (aniState == animationStates.LOCKED && Events["Toggle"].guiName == startEventGUIName)
                 {
-                    currentPart = parts[index];
-                    currentPart.Rigidbody.velocity = Vector3.zero; //*= 0.0001f;
-                    currentPart.Rigidbody.angularVelocity = Vector3.zero; //*= 0.0001f;
+                    this.part.vessel.verticalSpeed = 0f;
+                    this.part.vessel.horizontalSrfSpeed = 0f;
+                    this.part.vessel.velocityD = Vector3.zero;
+
+                    Part[] parts = this.part.vessel.parts.ToArray();
+                    Part currentPart;
+                    for (int index = 0; index < parts.Length; index++)
+                    {
+                        currentPart = parts[index];
+                        currentPart.Rigidbody.velocity = Vector3.zero; //*= 0.0001f;
+                        currentPart.Rigidbody.angularVelocity = Vector3.zero; //*= 0.0001f;
+                    }
                 }
             }
+            catch { }
         }
     }
 }
