@@ -11,15 +11,16 @@ namespace WildBlueIndustries
     public class WBIBuffaloGeoLab : PartModule
     {
         const string kNoCrew = "At least one cremember must staff the lab in order to perform the analysis.";
-        const string kNoScientists = "At least one Scientist must staff the lab in order to perform the analysis.";
-        const string kScienceGenerated = "You gained {0:f2} Science!";
-        const float kMessageDuration = 6.5f;
-        const float kBiomeAnalysisFactor = 0.75f;
+        const string kScienceGenerated = "You gained {0:f2} Bonus Science!";
+        const float kMessageDuration = 5f;
+        const float kBiomeAnalysisFactor = 1.0f;
 
-        ModuleBiomeScanner biomeScanner;
+        [KSPField]
+        public string researchSkill = "ScienceSkill";
+
+        ModuleBiomeScanner biomeScanner = null;
         ModuleGPS gps;
-        List<PResource.Resource> resourceList;
-        ModuleHighDefCamera highDefCamera;
+        List<PlanetaryResource> resourceList;
         GeoLabView geoLabView = new GeoLabView();
 
         public override void OnStart(StartState state)
@@ -33,7 +34,7 @@ namespace WildBlueIndustries
             geoLabView.performBiomAnalysisDelegate = this.perfomBiomeAnalysys;
         }
 
-        [KSPEvent(guiActive = true, guiName = "Toggle Lab GUI")]
+        [KSPEvent(guiActive = true, guiName = "Toggle Abundance Report")]
         public void ToggleLabGUI()
         {
             geoLabView.SetVisible(!geoLabView.IsVisible());
@@ -62,15 +63,9 @@ namespace WildBlueIndustries
             {
                 if (HighLogic.CurrentGame.Mode == Game.Modes.CAREER || HighLogic.CurrentGame.Mode == Game.Modes.SCIENCE_SANDBOX)
                 {
-                    ScreenMessages.PostScreenMessage(string.Format(kScienceGenerated, scienceBonus), kMessageDuration * 1.5f, ScreenMessageStyle.UPPER_CENTER);
+                    ScreenMessages.PostScreenMessage(string.Format(kScienceGenerated, scienceBonus), kMessageDuration, ScreenMessageStyle.UPPER_CENTER);
                     ResearchAndDevelopment.Instance.AddScience(scienceBonus, TransactionReasons.RnDs);
                 }
-            }
-
-            else
-            {
-                ScreenMessages.PostScreenMessage(kNoScientists, kMessageDuration * 1.5f, ScreenMessageStyle.UPPER_CENTER);
-                return;
             }
 
             //Run the analysis
@@ -84,7 +79,7 @@ namespace WildBlueIndustries
             float bonus = 0f;
 
             foreach (ProtoCrewMember crewMember in this.part.protoModuleCrew)
-                if (crewMember.experienceTrait.TypeName == "Scientist")
+                if (crewMember.HasEffect(researchSkill))
                 {
                     //One point for being a scientist.
                     bonus += 1.0f;
@@ -102,19 +97,12 @@ namespace WildBlueIndustries
             if (gps == null)
                 gps = this.part.FindModuleImplementing<ModuleGPS>();
 
-            //Biome Scanner
             if (biomeScanner == null)
             {
                 biomeScanner = this.part.FindModuleImplementing<ModuleBiomeScanner>();
                 biomeScanner.Events["RunAnalysis"].guiActive = false;
+                biomeScanner.Events["RunAnalysis"].guiActiveEditor = false;
                 biomeScanner.Events["RunAnalysis"].guiActiveUnfocused = false;
-            }
-
-            if (highDefCamera == null)
-            {
-                highDefCamera = this.part.FindModuleImplementing<ModuleHighDefCamera>();
-                highDefCamera.Events["ToggleGui"].guiActive = false;
-                highDefCamera.Events["ToggleGui"].guiActiveUnfocused = false;
             }
 
             //Resource list
@@ -128,7 +116,6 @@ namespace WildBlueIndustries
 
             geoLabView.gps = this.gps;
             geoLabView.resourceList = this.resourceList;
-            geoLabView.highDefCamera = this.highDefCamera;
             geoLabView.part = this.part;
         }
     }

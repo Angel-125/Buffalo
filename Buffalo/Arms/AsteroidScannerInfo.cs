@@ -23,7 +23,6 @@ namespace WildBlueIndustries
     {
         public ModuleAsteroid asteroid = null;
         public ModuleAsteroidInfo asteroidInfo = null;
-        public Part potato = null;
 
         Vector2 scrollPosition, scrollPos2 =  new Vector2();
         List<ModuleAsteroidResource> astroResources = new List<ModuleAsteroidResource>();
@@ -38,7 +37,7 @@ namespace WildBlueIndustries
         {
             base.SetVisible(newValue);
             astroResources.Clear();
-            astroResources = this.potato.FindModulesImplementing<ModuleAsteroidResource>();
+            astroResources = this.asteroid.part.FindModulesImplementing<ModuleAsteroidResource>();
         }
 
         protected override void DrawWindowContents(int windowId)
