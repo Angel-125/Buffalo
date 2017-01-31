@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arms\AsteroidScannerInfo.cs" />
-    <Compile Include="Science\GeoLabView.cs" />
     <Compile Include="ModuleOmniWheel.cs" />
     <Compile Include="Utilities\HoverControlSetupGUI.cs" />
     <Compile Include="Utilities\HoverVTOLGUI.cs" />
@@ -71,7 +70,6 @@
     <Compile Include="Arms\WBIModuleGrappleNode.cs" />
     <Compile Include="Utilities\WBIModuleRotator.cs" />
     <Compile Include="Utilities\WBIVTOLManager.cs" />
-    <Compile Include="Science\WBIBuffaloGeoLab.cs" />
     <Compile Include="Utilities\WBIFlexFuelPack.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,7 +78,9 @@
       <Name>WildBlueTools</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Science\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
