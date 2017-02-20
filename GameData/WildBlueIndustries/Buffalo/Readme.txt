@@ -32,6 +32,9 @@ If these directories already exist, then delete the existing ones before install
 
 ---REVISION HISTORY---
 
+1.2.1
+- WBT Update
+
 1.2.0
 New Part
 - SCP Adapter: Use this to adapt standard crew ports (like the Mineshaft) to 1.25m parts. Thanks for the suggestion, JustJim!
