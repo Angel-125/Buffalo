@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using KSP.IO;
+using KerbalActuators;
 
 /*
 Source code derived from FSengineHover by Snjo
@@ -19,8 +20,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
+    //This class is used by the JetWing to handle its hovering, multi-engine switching, intakes and turbine spinning.
     [KSPModule("Multi Engine Hover")]
-    public class WBIMultiEngineHover : PartModule
+    public class WBIMultiEngineHover : WBIHoverController
     {
         [KSPField()]
         public float ecGenerated = 1.0f;
@@ -40,24 +42,6 @@ namespace WildBlueIndustries
         [KSPField()]
         public string turbineTransformNames = "";
 
-        [KSPField]
-        public float verticalSpeedIncrements = 1f;
-
-        [KSPField(guiActive = true, guiName = "Vertical Speed")]
-        public float verticalSpeed = 0f;
-
-        [KSPField(isPersistant = true)]
-        public bool hoverActive = false;
-
-        [KSPField]
-        public float thrustSmooth = 0.01f;
-
-        [KSPField(isPersistant = true)]
-        public float maxThrust = 0f;
-
-        [KSPField(isPersistant = true)]
-        public bool maxThrustFetched = false;
-
         [KSPField(isPersistant = true)]
         private bool runningPrimary;
 
@@ -66,10 +50,6 @@ namespace WildBlueIndustries
         protected ModuleEngines secondaryEngine;
         protected ModuleEngines currentEngine;
         protected MultiModeEngine multiModeEngine;
-        protected float currentThrustNormalized = 0f;
-        protected float targetThrustNormalized = 0f;
-        protected float minThrust = 0f;
-        protected bool guiVisible = true;
 
         [KSPEvent(guiActive = true, guiName = "Switch Engine Mode", guiActiveEditor = true, guiActiveUnfocused = true, unfocusedRange = 2.0f)]
         public void ToggleMode()
@@ -79,81 +59,6 @@ namespace WildBlueIndustries
 
             //Setup the intake
             SetupIntake();
-        }
-
-        [KSPEvent(guiActive = true, guiName = "Toggle Hover")]
-        public void ToggleHoverMode()
-        {
-            hoverActive = !hoverActive;
-            if (hoverActive)
-                ActivateHover();
-            else
-                DeactivateHover();
-        }
-
-        public void SetHoverMode(bool isActive)
-        {
-            hoverActive = isActive;
-
-            if (hoverActive)
-                ActivateHover();
-            else
-                DeactivateHover();
-        }
-
-        [KSPEvent(guiActive = true, guiName = "Vertical Speed +")]
-        public void IncreaseVSpeed()
-        {
-            verticalSpeed += verticalSpeedIncrements;
-            printSpeed();
-        }
-
-        [KSPEvent(guiActive = true, guiName = "Vertical Speed -")]
-        public void DecreaseVSpeed()
-        {
-            verticalSpeed -= verticalSpeedIncrements;
-            printSpeed();
-        }
-
-        [KSPAction("Toggle Hover")]
-        public void toggleHoverAction(KSPActionParam param)
-        {
-            ToggleHoverMode();
-        }
-
-        [KSPAction("Vertical Speed +")]
-        public void increaseVerticalSpeed(KSPActionParam param)
-        {
-            IncreaseVSpeed();
-        }
-
-        [KSPAction("Vertical Speed -")]
-        public void decreaseVerticalSpeed(KSPActionParam param)
-        {
-            DecreaseVSpeed();
-        }
-
-        public void KillVSpeed()
-        {
-            verticalSpeed = 0f;
-            printSpeed();
-        }
-
-        [KSPEvent(guiActive = true, guiName = "Show GUI")]
-        public void ShowGUI()
-        {
-            WBIVTOLManager.Instance.ShowGUI();
-        }
-
-        public void SetGUIVisible(bool isVisible)
-        {
-            guiVisible = isVisible;
-            Events["ToggleHoverMode"].guiActive = isVisible;
-            Events["IncreaseVSpeed"].guiActive = isVisible;
-            Events["DecreaseVSpeed"].guiActive = isVisible;
-            Fields["verticalSpeed"].guiActive = isVisible;
-
-            //ShowGUI event is always shown...
         }
 
         public override void OnStart(PartModule.StartState state)
@@ -182,15 +87,6 @@ namespace WildBlueIndustries
                     SetCurrentEngine();
                 }
 
-                //Set min/max thrust
-                SetMinMaxThrust();
-
-                //Set hover state
-                if (hoverActive)
-                    ActivateHover();
-                else
-                    DeactivateHover();
-
                 //Set gui visible state
                 SetGUIVisible(guiVisible);
 
@@ -202,14 +98,12 @@ namespace WildBlueIndustries
             }
         }
 
-        public override void OnFixedUpdate()
+        public void FixedUpdate()
         {
-            base.OnFixedUpdate();
             if (HighLogic.LoadedSceneIsFlight == false && vessel != FlightGlobals.ActiveVessel)
                 return;
-
-            //Run the hover system
-            setHoverThrottle();
+            if (!hoverActive)
+                return;
 
             //Generate electricty; for some reason the ModuleAlternator wasn't working so we'll do it ourselves.
             generateECAndSpinTurbines();
@@ -224,10 +118,7 @@ namespace WildBlueIndustries
                 if (multiModeEngine != null)
                 {
                     if (runningPrimary != multiModeEngine.runningPrimary)
-                    {
                         SetCurrentEngine();
-                        SetMinMaxThrust();
-                    }
                 }
 
                 //Monitor the throttle
@@ -237,36 +128,6 @@ namespace WildBlueIndustries
         }
 
         #region Helpers
-        protected void setHoverThrottle()
-        {
-            if (hoverActive)
-            {
-                //Do we go up or down?
-                if (vessel.verticalSpeed >= verticalSpeed)
-                    targetThrustNormalized = 0f;
-                else if (vessel.verticalSpeed < verticalSpeed)
-                    targetThrustNormalized = 1f;
-
-                //Normalize the thrust
-                currentThrustNormalized = Mathf.Lerp(currentThrustNormalized, targetThrustNormalized, thrustSmooth);
-
-                //Calculate new thrust
-                float newThrust = maxThrust * currentThrustNormalized;
-                if (newThrust <= minThrust)
-                    newThrust = minThrust + 0.001f;
-
-                //Set the throttle based upon thrust
-                if (currentEngine != null)
-                {
-                    currentEngine.currentThrottle = newThrust / maxThrust;
-                }
-                else
-                {
-                    Debug.Log("currentEngine is null");
-                }
-            }
-        }
-
         protected void generateECAndSpinTurbines()
         {
             float ecToGenerate = ecGenerated * TimeWarp.fixedDeltaTime;
@@ -374,11 +235,6 @@ namespace WildBlueIndustries
             intake.checkForOxygen = checkForOxygen;
         }
 
-        public void printSpeed()
-        {
-            ScreenMessages.PostScreenMessage(new ScreenMessage("Hover Climb Rate: " + verticalSpeed, 1f, ScreenMessageStyle.UPPER_CENTER));
-        }
-
         public void SetCurrentEngine()
         {
             if (multiModeEngine == null)
@@ -396,59 +252,40 @@ namespace WildBlueIndustries
             }
         }
 
-        public void SetMinMaxThrust()
+        public override void ActivateHover()
         {
+            base.ActivateHover();
             if (currentEngine != null)
             {
-                if (maxThrustFetched && maxThrust > 0f)
-                {
-                    currentEngine.maxThrust = maxThrust;
-                }
-                else
-                {
-                    maxThrust = currentEngine.maxThrust;
-                    maxThrustFetched = true;
-                }
-                minThrust = currentEngine.minThrust;
-            }
-        }
-
-        public void ActivateHover()
-        {
-            if (currentEngine != null)
-            {
-                hoverActive = true;
-                verticalSpeed = 0f;
                 vessel.ActionGroups.SetGroup(KSPActionGroup.RCS, true);
-                if (guiVisible)
-                {
-                    Events["ToggleHoverMode"].guiName = "Turn Off Hover Mode";
-                    Events["IncreaseVSpeed"].guiActive = true;
-                    Events["DecreaseVSpeed"].guiActive = true;
-                    Fields["verticalSpeed"].guiActive = true;
-                }
-                ScreenMessages.PostScreenMessage(new ScreenMessage("Hover Mode On", 1f, ScreenMessageStyle.UPPER_CENTER));
             }
         }
 
-        public void DeactivateHover()
+        public override void DeactivateHover()
         {
+            base.DeactivateHover();
             if (currentEngine != null)
             {
                 currentEngine.currentThrottle = FlightInputHandler.state.mainThrottle;
-                hoverActive = false;
-                verticalSpeed = 0f;
                 vessel.ActionGroups.SetGroup(KSPActionGroup.RCS, false);
-                if (guiVisible)
-                {
-                    Events["ToggleHoverMode"].guiName = "Turn On Hover Mode";
-                    Events["IncreaseVSpeed"].guiActive = false;
-                    Events["DecreaseVSpeed"].guiActive = false;
-                    Fields["verticalSpeed"].guiActive = false;
-                }
-                ScreenMessages.PostScreenMessage(new ScreenMessage("Hover Mode Off", 1f, ScreenMessageStyle.UPPER_CENTER));
             }
         }
+
+        public override void UpdateHoverState(float throttleValue)
+        {
+            currentEngine.currentThrottle = throttleValue * engine.thrustPercentage / 100.0f;
+        }
+
+        public override void StartEngine()
+        {
+            currentEngine.Activate();
+        }
+
+        public override void StopEngine()
+        {
+            currentEngine.Shutdown();
+        }
+
         #endregion
     }
 }

@@ -57,8 +57,6 @@
   <ItemGroup>
     <Compile Include="Arms\AsteroidScannerInfo.cs" />
     <Compile Include="ModuleOmniWheel.cs" />
-    <Compile Include="Utilities\HoverControlSetupGUI.cs" />
-    <Compile Include="Utilities\HoverVTOLGUI.cs" />
     <Compile Include="Utilities\WBIMultiEngineHover.cs" />
     <Compile Include="Backpacks\JetWing.cs" />
     <Compile Include="Backpacks\WBIOutback.cs" />
@@ -68,11 +66,13 @@
     <Compile Include="Settings\BuffaloGameSettings.cs" />
     <Compile Include="Arms\WBIModuleAsteroidScanner.cs" />
     <Compile Include="Arms\WBIModuleGrappleNode.cs" />
-    <Compile Include="Utilities\WBIModuleRotator.cs" />
-    <Compile Include="Utilities\WBIVTOLManager.cs" />
     <Compile Include="Utilities\WBIFlexFuelPack.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\KerbalActuators\KerbalActuators\KerbalActuators.csproj">
+      <Project>{691F7D23-82FA-4194-8357-0EF40092C050}</Project>
+      <Name>KerbalActuators</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\WildBlueTools\WildBlueTools.csproj">
       <Project>{CC0BDF1A-9641-4628-9F0F-3500DDC99534}</Project>
       <Name>WildBlueTools</Name>

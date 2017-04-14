@@ -2,6 +2,7 @@ C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\Buffalo.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\Buffalo.pdb
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\Assembly-CSharp-firstpass.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\Assembly-CSharp.dll
+C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\KerbalActuators.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\KSPAssets.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\UnityEngine.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\UnityEngine.UI.dll
@@ -10,8 +11,9 @@ C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\TrackIRUnity.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\Mono.Cecil.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\TDx.TDxInput.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\Mono.Security.dll
+C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\KerbalActuators.pdb
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\WildBlueTools.pdb
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\UnityEngine.xml
+C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\obj\Debug\Buffalo.csprojResolveAssemblyReference.cache
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\obj\Debug\Buffalo.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\obj\Debug\Buffalo.pdb
-C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\obj\Debug\Buffalo.csprojResolveAssemblyReference.cache
