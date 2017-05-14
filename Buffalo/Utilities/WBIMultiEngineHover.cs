@@ -102,8 +102,6 @@ namespace WildBlueIndustries
         {
             if (HighLogic.LoadedSceneIsFlight == false && vessel != FlightGlobals.ActiveVessel)
                 return;
-            if (!hoverActive)
-                return;
 
             //Generate electricty; for some reason the ModuleAlternator wasn't working so we'll do it ourselves.
             generateECAndSpinTurbines();

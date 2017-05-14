@@ -32,8 +32,8 @@ namespace WildBlueIndustries
         KerbalEVA evaKerbal;
         ModuleDecouple decoupler;
         MultiModeEngine multiModeEngine;
-        ModuleEngines primaryEngine;
-        ModuleEngines secondaryEngine;
+        ModuleEnginesFX primaryEngine;
+        ModuleEnginesFX secondaryEngine;
         WBIResourceSwitcher resourceSwitcher;
         WBIMultiEngineHover hoverEngine;
 
@@ -71,10 +71,30 @@ namespace WildBlueIndustries
 //        public bool sasActivated;
 //        Quaternion currentHeading;
 
+        protected void moveThrustToCOM()
+        {
+            if (primaryEngine == null || secondaryEngine == null)
+                return;
+
+            int transformCount = primaryEngine.thrustTransforms.Count;
+
+            for (int index = 0; index < transformCount; index++)
+                primaryEngine.thrustTransforms[index].position = this.part.vessel.CurrentCoM;
+
+            transformCount = secondaryEngine.thrustTransforms.Count;
+            for (int index = 0; index < transformCount; index++)
+                secondaryEngine.thrustTransforms[index].position = this.part.vessel.CurrentCoM;
+        }
+
         public override void OnUpdate()
         {
             base.OnUpdate();
+            if (HighLogic.LoadedSceneIsFlight == false)
+                return;
             FXGroup thrusterFX;
+
+            //Move engine transforms to center of mass
+            moveThrustToCOM();
 
             //We need engine power to run the RCS
             if (vessel.ActionGroups[KSPActionGroup.RCS])
@@ -149,7 +169,7 @@ namespace WildBlueIndustries
         {
             base.OnStart(state);
 
-            if (HighLogic.LoadedSceneIsEditor == false && HighLogic.LoadedSceneIsFlight == false)
+            if (HighLogic.LoadedSceneIsFlight == false)
                 return;
 
             rcsModule = this.part.FindModuleImplementing<ModuleRCS>();
@@ -163,8 +183,8 @@ namespace WildBlueIndustries
             setupGUI();
            
             //Get the primary and secondary engine
-            List<ModuleEngines> engineList = this.part.FindModulesImplementing<ModuleEngines>();
-            foreach (ModuleEngines engine in engineList)
+            List<ModuleEnginesFX> engineList = this.part.FindModulesImplementing<ModuleEnginesFX>();
+            foreach (ModuleEnginesFX engine in engineList)
             {
                 if (engine.engineID == multiModeEngine.primaryEngineID)
                     primaryEngine = engine;
@@ -242,7 +262,7 @@ namespace WildBlueIndustries
             //Hide RCS GUI
             ModuleRCS rcs = this.part.FindModuleImplementing<ModuleRCS>();
             rcs.Fields["realISP"].guiActive = false;
-            rcs.Events["Disable"].guiActive = false;
+            rcs.Fields["rcsEnabled"].guiActive = false;
 
             //Hide hover engine gui
             hoverEngine = this.part.FindModuleImplementing<WBIMultiEngineHover>();
