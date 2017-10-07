@@ -1,3 +1,8 @@
+C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\MarkdownSeparator.exe
+C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\xmldoc2md.xsl
+C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\RunMDSeparator.bat
+C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\RunPowershell.bat
+C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\xmldoc2md.ps1
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\Buffalo.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\Buffalo.pdb
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\Assembly-CSharp-firstpass.dll
@@ -8,7 +13,7 @@ C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\KSPAssets.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\UnityEngine.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\UnityEngine.UI.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\WildBlueTools.dll
-C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\TrackIRUnity.dll
+C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\KSPTrackIR.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\Mono.Cecil.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\TDx.TDxInput.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\Mono.Security.dll

@@ -19,7 +19,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    class BuffaloSettings : Window<BuffaloSettings>
+    class BuffaloSettings : Dialog<BuffaloSettings>
     {
         static public float rcsVolume;
 

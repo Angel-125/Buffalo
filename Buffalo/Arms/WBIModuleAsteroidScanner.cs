@@ -20,7 +20,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 namespace WildBlueIndustries
 {
     [KSPModule("Asteroid Scanner")]
-    class WBIModuleAsteroidScanner : PartModule, IModuleInfo
+    public class WBIModuleAsteroidScanner : PartModule, IModuleInfo
     {
         private const float kMessageDuration = 5.0f;
         private const string kNoAnalysisModule = "Unable to find an analysis module, cannot proceed!";
@@ -69,12 +69,6 @@ namespace WildBlueIndustries
             scannerInfo.asteroid = asteroid;
             scannerInfo.asteroidInfo = asteroidInfo;
             scannerInfo.SetVisible(true);
-        }
-
-        public void OnGUI()
-        {
-            if (scannerInfo.IsVisible())
-                scannerInfo.DrawWindow();
         }
 
         public string GetModuleTitle()

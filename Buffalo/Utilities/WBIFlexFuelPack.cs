@@ -58,18 +58,6 @@ namespace WildBlueIndustries
                 setEmittersVisible(false);
             }
 
-            if (converter.IsActivated && particlesEnabled == false && converter.status.Contains("load"))
-            {
-                particlesEnabled = true;
-                setEmittersVisible(true);
-            }
-
-            else if (converter.IsActivated && particlesEnabled && converter.status.Contains("cap"))
-            {
-                particlesEnabled = false;
-                setEmittersVisible(false);
-            }
-
         }
 
         protected void setEmittersVisible(bool isVisible)

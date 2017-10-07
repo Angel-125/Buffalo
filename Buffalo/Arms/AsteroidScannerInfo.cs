@@ -19,7 +19,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    class AsteroidScannerInfo : Window<AsteroidScannerInfo>
+    public class AsteroidScannerInfo : Dialog<AsteroidScannerInfo>
     {
         public ModuleAsteroid asteroid = null;
         public ModuleAsteroidInfo asteroidInfo = null;
