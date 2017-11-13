@@ -1,4 +1,4 @@
-@PART[WBI_GrapplerArm]:FOR[Buffalo]:NEEDS[KIS]
+@PART[WBI_GrapplerArm]:NEEDS[KIS]
 {
 	MODULE
 	{
