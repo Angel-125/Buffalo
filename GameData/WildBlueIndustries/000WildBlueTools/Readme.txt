@@ -13,6 +13,9 @@ New Props
 - Dance Floor: Animated dance floor!
 - Jukebox: Actually plays music! Music files must be in the .ogg format and go in the 000WildBlueTools/Music folder.
 
+ARP Icons
+Added new Alternate Resource Panel icons courtesy of JadeOfMaar. These look great! :)
+
 Bug Fixes And Enhancements
 - Fixed missing resource requirements when templates require multiple resources.
 - Inflatable parts can now be inflated only once.

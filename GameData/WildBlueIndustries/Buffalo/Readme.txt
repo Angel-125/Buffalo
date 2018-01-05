@@ -36,6 +36,9 @@ If these directories already exist, then delete the existing ones before install
 - Added new Double-wide Saddle Tank. It's just like its predecessor, but twice the width and storage capacity.
 - WBT Update
 
+ARP Icons
+Added new Alternate Resource Panel icons courtesy of JadeOfMaar. These look great! :)
+
 2.3.1
 - WBT Update
 - Fixed missing resource icons
