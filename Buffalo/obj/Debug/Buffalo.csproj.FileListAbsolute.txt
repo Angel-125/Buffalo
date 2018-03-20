@@ -15,12 +15,12 @@ C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\UnityEngine.UI.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\WildBlueTools.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\KSPTrackIR.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\Mono.Cecil.dll
+C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\Ionic.Zip.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\TDx.TDxInput.dll
-C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\Mono.Security.dll
+C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\RedShellSDK.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\BARISBridge.pdb
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\KerbalActuators.pdb
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\WildBlueTools.pdb
-C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\UnityEngine.xml
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\obj\Debug\Buffalo.csprojResolveAssemblyReference.cache
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\obj\Debug\Buffalo.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\obj\Debug\Buffalo.pdb
