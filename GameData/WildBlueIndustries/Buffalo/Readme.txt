@@ -32,6 +32,19 @@ If these directories already exist, then delete the existing ones before install
 
 ---REVISION HISTORY---
 
+2.5.0
+New Part
+- Buffalo Recycler Arm: Available if Pathfinder is installed. This arm has been redesigned to be fully articulated and combines the part recycling capabilities of the original with a magnet that can pick up other objects.
+
+Bug Fixes & Enhancements
+- Recompiled for KSP 1.4.3
+- Adjusted the tilt-rotor power and atmosphere curves. Thanks JadeOfMaar! :)
+- Improved resource summary in the geology lab.
+- Fixed a situation where resource distribution that wouldn't distribute resources.
+- Adjusted Classic Stock resource densities to reflect the 5-liter standard used by most stock resources.
+- Adjusted Classic Stock storage capacities to reflect the 5-liter standard used by most stock resources. These changes will affect new parts and when you reconfigure an existing part.
+- Classic Stock is now the default Play Mode for new installs of WBI mods. Existing games are unchanged.
+
 2.4.0
 - Recompiled for KSP 1.4.1
 
