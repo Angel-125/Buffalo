@@ -32,6 +32,9 @@ If these directories already exist, then delete the existing ones before install
 
 ---REVISION HISTORY---
 
+2.5.3
+- WBT and BARIS bridge update.
+
 2.5.0
 New Part
 - Buffalo Recycler Arm: Available if Pathfinder is installed. This arm has been redesigned to be fully articulated and combines the part recycling capabilities of the original with a magnet that can pick up other objects.
