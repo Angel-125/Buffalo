@@ -22,6 +22,9 @@ namespace WildBlueIndustries
     [KSPModule("Flex Fuel Switcher")]
     public class WBIFlexFuelPack : PartModule
     {
+        [KSPField]
+        public string exhaustEffect = string.Empty;
+
         ModuleResourceConverter converter;
         bool particlesEnabled;
 
@@ -37,6 +40,7 @@ namespace WildBlueIndustries
 
                 if (HighLogic.LoadedSceneIsFlight)
                     storage.onModuleRedecorated += new ModuleRedecoratedEvent(storage_onModuleRedecorated);
+                converter = this.part.FindModuleImplementing<ModuleResourceConverter>();
             }
         }
 
@@ -52,26 +56,8 @@ namespace WildBlueIndustries
             if (converter == null && HighLogic.LoadedSceneIsFlight)
                 converter = this.part.FindModuleImplementing<ModuleResourceConverter>();
 
-            if (converter.IsActivated == false && particlesEnabled)
-            {
-                particlesEnabled = false;
-                setEmittersVisible(false);
-            }
-
-        }
-
-        protected void setEmittersVisible(bool isVisible)
-        {
-            KSPParticleEmitter[] emitters = part.GetComponentsInChildren<KSPParticleEmitter>();
-            int totalCount = emitters.Length;
-            KSPParticleEmitter emitter;
-
-            for (int index = 0; index < totalCount; index++)
-            {
-                emitter = emitters[index];
-                emitter.emit = isVisible;
-                emitter.enabled = isVisible;
-            }
+            float powerLevel = converter.IsActivated ? 1.0f : 0.0f;
+            this.part.Effect(exhaustEffect, powerLevel);
         }
     }
 }

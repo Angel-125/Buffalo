@@ -72,6 +72,7 @@
     <Compile Include="Arms\WBIModuleAsteroidScanner.cs" />
     <Compile Include="Arms\WBIModuleGrappleNode.cs" />
     <Compile Include="Utilities\WBIFlexFuelPack.cs" />
+    <Compile Include="Controllers\WBIGuppyDiveComputer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BARIS\BARISBridge\BARISBridge.csproj">
