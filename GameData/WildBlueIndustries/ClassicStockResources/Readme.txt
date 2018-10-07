@@ -11,7 +11,7 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 --RELEASE NOTES---
 
 1.0.4
-- Fixed Play Mode folder definitions.
+- Updated Raptium template - thanks JadeOfMaar! :)
 
 1.0.3
 - Fixed Play Mode folder definitions.
