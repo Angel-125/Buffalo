@@ -1,2 +1,1 @@
-- Fix for Grizzly colliding with extended ladders.
-- Fixes Play Mode failing to rename certain files. NOTE: You might need to reset your current play mode. Simply open the WBT app from the Space Center, choose another mode, press OK, and again open the app, selecting your original play mode. Then be sure to restart KSP.
+- Wild Blue Tools Update
