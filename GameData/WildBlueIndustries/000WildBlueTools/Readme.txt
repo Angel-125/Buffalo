@@ -6,6 +6,14 @@ A KSP mod that provides common functionality for mods by Wild Blue Industries.
 
 Copy the contents of the mod's GameData directory into your GameData folder.
 
+1.7
+- Recompiled for KSP 1.6
+- Bug fixes.
+
+1.61.1
+- Experiments can now require solar orbit to run properly.
+- Removed duplicate Play Mode patches.
+
 1.61
 - Fixed issues with resetting and rerunning science experiments that still claimed to be completed.
 - Fixed issue with science experiments requiring twice as many resources to complete when checkPartResources is set to true.

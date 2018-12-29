@@ -32,6 +32,12 @@ If these directories already exist, then delete the existing ones before install
 
 ---REVISION HISTORY---
 
+2.6.11
+- Recompiled for KSP 1.6.
+
+2.6.10
+- Removed duplicate Play Mode patches.
+
 2.6.9
 - Updated to KSP 1.5
 - Updated to KAS 1.0
