@@ -1,1 +1,2 @@
-- Bug fixes.
+- Fixed min/max version requirements
+- Buffalo ISRU transformed into an OmniConverter. It has twice the efficiency of the Micro ISRU.
