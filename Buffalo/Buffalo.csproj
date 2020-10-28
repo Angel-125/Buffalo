@@ -86,7 +86,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arms\AsteroidScannerInfo.cs" />
-    <Compile Include="ModuleOmniWheel.cs" />
     <Compile Include="Utilities\WBIMultiEngineHover.cs" />
     <Compile Include="Backpacks\JetWing.cs" />
     <Compile Include="Backpacks\WBIOutback.cs" />
