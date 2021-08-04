@@ -80,3 +80,4 @@ C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\obj\Debug\Buffalo.csproj.Core
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\obj\Debug\Buffalo.csproj.CopyComplete
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\obj\Debug\Buffalo.dll
 C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\obj\Debug\Buffalo.pdb
+C:\Projects\KSP\WildBlueIndustries\Buffalo\Buffalo\bin\Debug\UnityEngine.SubsystemsModule.dll
