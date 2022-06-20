@@ -98,10 +98,6 @@
     <Compile Include="Utilities\WBIFlexFuelPack.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BARIS\BARISBridge\BARISBridge.csproj">
-      <Project>{8D46364B-4F22-403D-84E3-C2DCA8E49A4A}</Project>
-      <Name>BARISBridge</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\KerbalActuators\KerbalActuators\KerbalActuators.csproj">
       <Project>{691F7D23-82FA-4194-8357-0EF40092C050}</Project>
       <Name>KerbalActuators</Name>

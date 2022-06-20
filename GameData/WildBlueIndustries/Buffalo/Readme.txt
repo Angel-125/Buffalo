@@ -32,6 +32,10 @@ If these directories already exist, then delete the existing ones before install
 
 ---REVISION HISTORY---
 
+2.12.0
+- Fixed issue where the Wagon module would automatically expand.
+- Removed BARIS dependency dll.
+
 2.11.0
 - Recompiled for KSP 1.12.2.
 - Aquatic parts use the SunkWorks plugin instead of Wild Blue Tools when SunkWorks is installed.
